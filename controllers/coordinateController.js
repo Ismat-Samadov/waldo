@@ -1,7 +1,7 @@
+// controllers/coordinateController.js
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Coordinate = require("../models/coordinate");
-
 exports.coordinate_list_get = asyncHandler(async (req, res, next) => {
 	const allCoordinate = await Coordinate.find().exec();
 	return res.json(Object.values(allCoordinate));

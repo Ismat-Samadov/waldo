@@ -1,3 +1,4 @@
+// routes/index.js
 var express = require("express");
 var router = express.Router();
 const coordinate_controller = require("../controllers/coordinateController");
