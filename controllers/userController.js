@@ -4,12 +4,26 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const { sortBy } = require("lodash");
 
+// exports.user_list_get = asyncHandler(async (req, res, next) => {
+// 	const allUser = await User.find({ game_completed: true })
+// 		.sort({ duration_in_seconds: 1 })
+// 		.exec();
+// 	return res.json(Object.values(allUser));
+// });
+
 exports.user_list_get = asyncHandler(async (req, res, next) => {
-	const allUser = await User.find({ game_completed: true })
-		.sort({ duration_in_seconds: 1 })
-		.exec();
-	return res.json(Object.values(allUser));
+	try {
+		const allUser = await User.find({ game_completed: true })
+			.sort({ duration_in_seconds: 1 })
+			.exec();
+		console.log("Retrieved users:", allUser);
+		return res.json(Object.values(allUser));
+	} catch (error) {
+		console.error("Error retrieving users:", error);
+		return res.status(500).json({ message: "Internal Server Error" });
+	}
 });
+
 
 exports.user_post = asyncHandler(async (req, res, next) => {
 	const errors = validationResult(req);
